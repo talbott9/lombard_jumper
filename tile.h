@@ -1,8 +1,8 @@
 //Tile constants
 const int TILE_ROWS = 64;
 const int TILE_COLUMNS = 128;
-const int TILE_WIDTH = 30;
-const int TILE_HEIGHT = 30;
+const int TILE_WIDTH = 16;
+const int TILE_HEIGHT = 16;
 const int TOTAL_TILES = TILE_ROWS*TILE_COLUMNS;
 
 const int MAP_WIDTH = TILE_COLUMNS*TILE_WIDTH;
@@ -13,6 +13,8 @@ const int TOTAL_TILE_SPRITES = 9;
 const int TILE_SNOW = 0;
 const int TILE_GRASS = 1;
 const int TILE_TREE[6] = {2,3,4,5,6,7};
+
+const int LENGTH_TILE_TEXTURE_COLUMN = 6;
 
 int LAST_TILE = TILE_TREE[5];
 

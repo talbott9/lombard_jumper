@@ -4,14 +4,17 @@
 #include "tile.h"
 #include "physics.h"
 #include "renderer.h"
+#include "particles.h"
 #include "player.h"
 #include "media.cpp"
 #include "physics.cpp"
 #include "renderer.cpp"
 #include "tile.cpp"
+#include "particles.cpp"
 #include "player.cpp"
 #include "leveleditor.h"
 #include "leveleditor.cpp"
+#include "cutscenes.cpp"
 
 int main(int argc, char* args[]) {
   init();
@@ -19,6 +22,11 @@ int main(int argc, char* args[]) {
   setTiles(tileSet);
   bool quit = false;
   SDL_Event e;
+  hildegarde.gTexture = &gHGTexture;
+  hildegarde.posX = 864;
+  hildegarde.posY = 832;
+  hildegarde.defaultPosX = 864;
+  hildegarde.defaultPosY = 832;
 			      
   while(!quit) {
     Uint32 starting_tick = SDL_GetTicks();
@@ -30,8 +38,10 @@ int main(int argc, char* args[]) {
     
     player.setCamera(camera);
     for(int i = 0; i < TOTAL_TILES; i++) {
-	tileSet[i]->render(camera, true);
+      tileSet[i]->render(camera, true);
     }
+    hildegarde.moveHG(tileSet);
+    hildegarde.render(camera);
     player.move(tileSet);
     player.render(camera);
     for(int i = 0; i < TOTAL_TILES; i++) {
@@ -53,9 +63,20 @@ int main(int argc, char* args[]) {
 	    else
 	      showHitBoxes = true;
 	  }
+	  if(e.key.keysym.sym == SDLK_g) {
+	    if(godMode)
+	      godMode = false;
+	    else
+	      godMode = true;
+	  }
 	}
       }
       player.handleEvent(e);
+    }
+
+    if(isCutscene) {
+      cutscene.play();
+      cutscene.handleEvent(e, false);
     }
     
     SDL_RenderPresent(gRenderer);

@@ -57,7 +57,7 @@ bool setTiles( Tile* tiles[] )
 	    gTileClips[i].w = TILE_WIDTH;
 	    gTileClips[i].h = TILE_HEIGHT;
 	    counter1++;
-	    if(counter1 > 5) {
+	    if(counter1 > LENGTH_TILE_TEXTURE_COLUMN) {
 	      counter1 =0;
 	      counter2++;
 	    }

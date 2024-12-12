@@ -8,6 +8,7 @@ class Player {
 
   //Moves the player
   void move(Tile *tiles[]);
+  void moveHG(Tile *tiles[]);
   bool touchesWall(SDL_Rect box, Tile* tiles[], bool getPos = false);
 	
   //Centers the camera over the player
@@ -28,13 +29,16 @@ class Player {
   void render(SDL_Rect& camera);
 
   float speedX, speedY;
- private:
+  void explodeSword(int x, int y);
   //Collision box of the player
-  SDL_Rect mBox;
+  SDL_Rect mBox, interactBox;
 
   //X-Y coordinates
-  float posX, posY;
+  float posX, posY, defaultPosX, defaultPosY;
+
+  int hgMoveTicks;
   
+private:
   //The velocity of the dot
   float mVelX, mVelY, deccX;
   bool jump, canJump, jumpCycle, airborne;
@@ -46,6 +50,11 @@ class Player {
   bool attack, pressedAttack;
   int attackTicks, swordAlpha, swordLife, swordOffset;
   SDL_Rect swordBox;
+  Particle* particles[TOTAL_PARTICLES];
+  bool deallocatedParticle[TOTAL_PARTICLES];
+  bool createdParticles, hasExploded, hitWall;
+  int swordExplodeXY[2];
+  int particleColors[5][3];
 };
 
-Player player;
+Player player, hildegarde;
